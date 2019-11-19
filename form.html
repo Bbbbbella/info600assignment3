@@ -33,7 +33,7 @@
 </form>
     <button onclick=""></button>
 <br />
-<button type="button" onclick="search()">Load Data</button>
+<button type="button"  >Load Data</button>
 <br/>
 <h1>Entered Records:</h1>
 
@@ -71,26 +71,7 @@
         });
     }
 
-    function add(inputData) {
-        $.post("http://localhost:8081/user", inputData,function() {
-            if (data) {
-                alert("Add successfully");
-                search();
-            } else {
-                alert("Fail to Add");
-            }
-        })
-    }
-
-    function remove(id) {
-        $.get("http://localhost:8081/user/" + id, {}, function (data) {
-            if (data) {
-                alert("Delete Successfully");
-            } else {
-                alert("Fail to Delete");
-            }
-        })
-    }
+ 
 </script>
 </body>
 </html>
