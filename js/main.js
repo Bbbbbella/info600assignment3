@@ -26,3 +26,6 @@ function assignClickHandler () {
     document.getElementById('inputs').reset()
   })
 }
+
+
+
