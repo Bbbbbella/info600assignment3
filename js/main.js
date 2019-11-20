@@ -5,6 +5,7 @@ function assignClickHandler () {
     const startYear = document.getElementById('startYear').value
     if (startYear < 2000) {
       window.alert('Incorrect year: ' + startYear)
+      document.getElementById('inputs').reset()
       return
     }
     const fullName = document.getElementById('fullName').value
@@ -28,15 +29,14 @@ function assignClickHandler () {
       "startYear": Number($("#startYear").val())
   };
   add(model);
-   
+
+    
   })
 }
-$(function(){
-  search();
-})
+
 
 function search() {
-  $.get("http://localhost:8081/data/entries.json", {}, function (data) {
+  $.get("/users", {}, function (data) {
       if (data.records && data.records.length > 0) {
           var htmlStr = "";
           var date = new Date()
@@ -52,26 +52,29 @@ function search() {
   });
 }
 
-function add(inputData) {
-  $.post("http://localhost:8081/user", inputData,function() {
+function add(inputData){
+  $.get("http://localhost:8081/user/", inputData, function (data) {
       if (data) {
-          alert("Add successfully"); 
-          document.getElementById('inputs').reset()
-          search();
-      } else {
           alert("Fail to Add");
+          
+      } else {
+          alert("Add Successfully");
+          search();
       }
-  })
+      document.getElementById('inputs').reset()
 }
+  )}
 
 function remove(id) {
   $.get("http://localhost:8081/user/" + id, {}, function (data) {
       if (data) {
-          alert("Delete Successfully");
-      } else {
           alert("Fail to Delete");
+          
+      } else {
+          alert("Delete Succssfully");
+          search();
+          
       }
   })
 }
-
 
