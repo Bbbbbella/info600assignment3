@@ -34,45 +34,13 @@
 </form>
     <button onclick=""></button>
 <br />
-<button type="button"  >Load Data</button>
+
+<button type="button"  onclick="search()">Load Data</button>
 <br/>
 <h1>Entered Records:</h1>
 
 <ul id="enteredRecords">
 </ul>
 
-<script type="text/javascript">
-	$(function(){
-        search();
-        $("#addRec").click(function () {
-            var model = {
-                "fullName": $("#fullName").val(),
-                "major": $("#major").val(),
-                "startYear": Number($("#startYear").val())
-            };
-            add(model);
-        });
-
-    });
-
-    function search() {
-        $.get("http://localhost:8081/data/entries.json", {}, function (data) {
-            if (data.records && data.records.length > 0) {
-                var htmlStr = "";
-                var date = new Date()
-                var hours = date.getHours().toString().padStart(2, '0')
-                var minutes = date.getMinutes().toString().padStart(2, '0')
-                var time = hours + ':' + minutes
-                for (var i = 0; i < data.records.length; i++) {
-                    var deleteStr = "<button onclick='remove(\"" + data.records[i].id +"\")'>Delete</button>"
-                    htmlStr = htmlStr + "<li>" + time + ' - ' + data.records[i].fullName + ", " + data.records[i].major + ", " + data.records[i].startYear + ", " + deleteStr + "</li>"
-                }
-                $("#enteredRecords").html(htmlStr);
-            }
-        });
-    }
-
- 
-</script>
 </body>
 </html>
