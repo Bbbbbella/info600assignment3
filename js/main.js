@@ -29,12 +29,9 @@ function assignClickHandler () {
       "startYear": Number($("#startYear").val())
   };
   add(model);
-
-    
   })
+  document.getElementById('loadData').addEventListener('click', search)
 }
-
-
 function search() {
   $.get("/users", {}, function (data) {
       if (data.records && data.records.length > 0) {
@@ -53,7 +50,11 @@ function search() {
 }
 
 function add(inputData){
-  $.get("http://localhost:8081/user/", inputData, function (data) {
+  $.ajax({
+    type:"POST",
+    url:"/user/", 
+    data:inputData, 
+    function (data) {
       if (data) {
           alert("Fail to Add");
           
@@ -61,13 +62,17 @@ function add(inputData){
           alert("Add Successfully");
           search();
       }
-      document.getElementById('inputs').reset()
+      
 }
-  )}
-
-function remove(id) {
-  $.get("http://localhost:8081/user/" + id, {}, function (data) {
-      if (data) {
+  })
+  document.getElementById('inputs').reset()
+}
+function remove(id){
+  $.ajax({
+    type:"DELETE",
+    url:"/user/"+ id, 
+    function (data) {
+      if (data='') {
           alert("Fail to Delete");
           
       } else {
@@ -75,6 +80,5 @@ function remove(id) {
           search();
           
       }
-  })
+  }})
 }
-
